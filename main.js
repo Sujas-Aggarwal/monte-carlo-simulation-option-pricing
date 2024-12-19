@@ -1985,7 +1985,8 @@ Module.onRuntimeInitialized = () => {
   function calculate() {
     // Example parameters
     console.log("Calculating option prices...");
-    document.querySelector("#loading").style.display = "flex";
+    document.querySelector("#call-price").innerHTML = "calculating...";
+    document.querySelector("#put-price").innerHTML = "calculating...";
     let S0 = 100.0;
     let K = 100.0;
     let r = 0.05;
@@ -2002,12 +2003,12 @@ Module.onRuntimeInitialized = () => {
     const putPrice = calculatePutOption(S0, K, r, sigma, T, numSimulations);
     document.querySelector("#call-price").innerHTML = callPrice;
     document.querySelector("#put-price").innerHTML = putPrice;
-    document.querySelector("#loading").style.display = "none";
+    console.log("Calculated")
   }
   document.querySelector("button").addEventListener("click", calculate);
-  document.querySelector("#numSimulations").addEventListener("keydown",(e)=>{
-    if(e.key === "Enter"){
+  document.querySelector("#numSimulations").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
       calculate();
     }
-  })
+  });
 };
