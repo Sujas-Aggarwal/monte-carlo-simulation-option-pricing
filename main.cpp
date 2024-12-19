@@ -3,6 +3,8 @@
 #include <random>
 #include <vector>
 
+extern "C" {
+
 // Function to generate normally distributed random numbers
 double generateGaussianNoise(double mean, double stddev) {
     static std::mt19937 generator(std::random_device{}());
@@ -40,22 +42,13 @@ double monteCarloOptionPricing(double S0, double K, double r, double sigma, doub
     return std::exp(-r * T) * averagePayoff;
 }
 
-int main() {
-    // Option parameters
-    double S0 = 100.0;   // Initial stock price
-    double K = 100.0;    // Strike price
-    double r = 0.05;     // Risk-free rate
-    double sigma = 0.2;  // Volatility
-    double T = 1;      // Time to maturity (1 year)
-    int numSimulations = 100000; // Number of simulations
+// Wrapper functions for JavaScript
+double calculateCallOption(double S0, double K, double r, double sigma, double T, int numSimulations) {
+    return monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, true);
+}
 
-    // Calculate option prices
-    double callPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, true);
-    double putPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, false);
+double calculatePutOption(double S0, double K, double r, double sigma, double T, int numSimulations) {
+    return monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, false);
+}
 
-    // Output the results
-    std::cout << "European Call Option Price: " << callPrice << std::endl;
-    std::cout << "European Put Option Price: " << putPrice << std::endl;
-
-    return 0;
 }

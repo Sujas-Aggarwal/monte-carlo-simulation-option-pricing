@@ -1,0 +1,2 @@
+1. docker run -it --rm -v ${pwd}:/src emscripten/emsdk bash
+2. emcc main.cpp -o main.js -s EXPORTED_FUNCTIONS='["_calculateCallOption", "_calculatePutOption"]' -s EXPORTED_RUNTIME_METHODS='["cwrap"]'
